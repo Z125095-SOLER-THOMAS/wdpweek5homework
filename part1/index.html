@@ -38,6 +38,27 @@
                 color: #555;
                 padding-top: 2em;
             }
+
+            .loader 
+            {
+                border: 4px solid rgba(174, 174, 174, 0.116);
+                border-top: 4px solid #321fde;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -20px;
+                margin-top: -20px;
+            }   
+
+            @keyframes spin 
+            {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
         </style>
     </head>
 
@@ -47,6 +68,7 @@
         <h2>Create by Gift sensei </h2> <!-- Change XXXX to your name and student ID-->
 
         <div id="quoteBox">
+            <div id="loader" class="loader"></div>
             <p id="quote">Click the button to get a quote!</p>
             <p id="author"></p>
         </div>
@@ -62,13 +84,35 @@
             const authorText = document.getElementById("author");
             const newQuoteBtn = document.getElementById("newQuoteBtn");
 
+            function hideLoader() 
+            {
+                const loader = document.getElementById("loader");
+                loader.style.display = "none";
+            }
+
             function getQuote() 
             {
             
                 //INPUT YOUR CODE HERE
                 //HINT: Use fetch() to get quote from "quotes.json"
 
+                quoteText.textContent = "Loading a new quote...";
+                authorText.textContent = "";
+                const loader = document.getElementById("loader");
+                loader.style.display = "block";
+
+                setTimeout(() => {
+                    hideLoader(); 
+                    fetch("quotes.json")
+                    .then(response => response.json())
+                    .then(data => {
+                        const rand = Math.floor(Math.random() * data.length);
+                        quoteText.textContent = `"${data[rand].q}"`;
+                        authorText.textContent = `-- ${data[rand].a}`;
+                    });
+                },500);
             }
+                
             newQuoteBtn.addEventListener("click", getQuote);
             getQuote(); // Load a quote on page load
         </script>
