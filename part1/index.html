@@ -47,11 +47,10 @@
                 width: 40px;
                 height: 40px;
                 animation: spin 1s linear infinite;
-                position: absolute;
+                position: relative;
                 top: 50%;
                 left: 50%;
                 margin-left: -20px;
-                margin-top: -20px;
             }   
 
             @keyframes spin 
@@ -65,7 +64,7 @@
     <body>
 
         <h1>Quote generator homework</h1>
-        <h2>Create by Gift sensei </h2> <!-- Change XXXX to your name and student ID-->
+        <h2>Created by Thomas SOLER Z125095 </h2> <!-- Change XXXX to your name and student ID-->
 
         <div id="quoteBox">
             <div id="loader" class="loader"></div>
@@ -96,7 +95,7 @@
                 //INPUT YOUR CODE HERE
                 //HINT: Use fetch() to get quote from "quotes.json"
 
-                quoteText.textContent = "Loading a new quote...";
+                quoteText.textContent = "";
                 authorText.textContent = "";
                 const loader = document.getElementById("loader");
                 loader.style.display = "block";
